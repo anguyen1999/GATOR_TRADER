@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from 'react-router-dom';
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import NavBar from "../Header/NavBar";
 import axios from "axios";
@@ -41,7 +41,7 @@ export default function Register(props) {
         <div className="Login">
             <form onSubmit={handleSubmit}>
                 <FormGroup bsSize="large">
-                <FormLabel>Full Name</FormLabel>
+                <ControlLabel>Full Name</ControlLabel>
                 <FormControl
                     autoFocus
                     required
@@ -52,7 +52,7 @@ export default function Register(props) {
                 />
                 </FormGroup>
                 <FormGroup controlId="email" bsSize="large">
-                <FormLabel>Affiliation</FormLabel>
+                <ControlLabel>Affiliation</ControlLabel>
                 <FormControl
                     required
                     placeholder="University of Florida"
@@ -62,7 +62,7 @@ export default function Register(props) {
                 />
                 </FormGroup>
                 <FormGroup controlId="email" bsSize="large">
-                <FormLabel>Phone Number</FormLabel>
+                <ControlLabel>Phone Number</ControlLabel>
                 <FormControl
                     required
                     placeholder="329948294"
@@ -72,7 +72,7 @@ export default function Register(props) {
                 />
                 </FormGroup>
                 <FormGroup controlId="email" bsSize="large">
-                <FormLabel>Email</FormLabel>
+                <ControlLabel>Email</ControlLabel>
                 <FormControl
                     autoFocus
                     required
@@ -83,7 +83,7 @@ export default function Register(props) {
                 />
                 </FormGroup>
                 <FormGroup controlId="password" bsSize="large">
-                <FormLabel>Password</FormLabel>
+                <ControlLabel>Password</ControlLabel>
                 <FormControl
                     required
                     placeholder="At least 6 characters, must contain 1 number"

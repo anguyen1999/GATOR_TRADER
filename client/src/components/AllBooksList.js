@@ -26,6 +26,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -154,12 +155,13 @@ const AllBooksList = (props) => {
     return (
         <Container>
             
-          <b>Note: Click on the arrow beside the First Name to contact the seller</b>
        
 
             <TableContainer component={Paper} width="100%">
                 <MaterialTable
                     icons={tableIcons}
+                    title="Textbooks"
+
                     columns={[
                         { title: "firstName", field: "firstname" },
                         { title: "lastName", field: "lastName" },
@@ -170,7 +172,9 @@ const AllBooksList = (props) => {
                         { title: "ISBN", field: "ISBN" },
                         { title: "Condition", field: "condition", lookup: { 1: 'Brand New', 2: 'Like New', 3: 'Used', 4: 'Old' } },
                         { title: "Price ($)", field: "price" },
-                        { title: "Method", field: "method", lookup: { 1: 'Sell', 2: 'Trade', 3: 'Borrow', 4: 'PDF' } }
+                        { title: "Method", field: "method", lookup: { 1: 'Sell', 2: 'Trade', 3: 'Borrow', 4: 'PDF' } },
+
+
 
 
                     ]}
@@ -223,9 +227,7 @@ const AllBooksList = (props) => {
 
                                                     </Grid>
                                                     <Grid item>
-                                                        <Button size="small" color="primary"  >
-                                                            <a href={handleEmail(rowData.firstname, rowData.lastName)} >Contact Seller</a>
-                                                        </Button>
+                                                        
                                                     </Grid>
                                                 </Grid>
 
@@ -239,10 +241,29 @@ const AllBooksList = (props) => {
                             }
                         }
                     ]}
-                    title="Textbooks"
+                    actions={[
+                        {
+                          icon: MailOutlineIcon,
+                          tooltip: 'Email Seller',
+                          onClick: (event, rowData) => {
+                            // setUser(rowData);
+                            // setMessage(rowData.patientName + ', you have an upcoming appointment.');
+                            handleEmail(rowData.firstname, rowData.lastName)
+                           
+                          }
+                        }
+                      ]}
                     data={
                         newBookList
                     }
+                    options={{
+                        filtering: true,
+                        
+                        
+                      }
+                    }
+                      
+                    
                 />
 
             </TableContainer>
