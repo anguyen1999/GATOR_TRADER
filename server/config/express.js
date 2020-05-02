@@ -4,7 +4,8 @@ const path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     exampleRouter = require('../routes/examples.server.routes'),
-    listingRouter = require('../routes/listingsRoute');
+    listingRouter = require('../routes/listingsRoute'),
+    userRouter = require('../routes/usersRoute');
 
 module.exports.init = () => {
     /* 
@@ -22,6 +23,13 @@ module.exports.init = () => {
 
     // enable request logging for development debugging
     app.use(morgan('dev'));
+    app.use(function (req, res, next) {       
+        res.header("Access-Control-Allow-Origin", "*");        
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        next();   
+        
+        }); 
 
     // body parsing middleware
     app.use(bodyParser.json());
@@ -29,6 +37,7 @@ module.exports.init = () => {
     // add a router
     app.use('/api/example', exampleRouter);
     app.use('/api/listings', listingRouter);
+    app.use('/api/users', userRouter );
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files

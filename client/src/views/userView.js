@@ -32,8 +32,8 @@ import Collapse from '@material-ui/core/Collapse';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import AddIcon from '@material-ui/icons/Add';
-import LoginIcon from '@material-ui/icons/VpnKey';
-import HomeIcon from '@material-ui/icons/Home';
+
+
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import Drawer from '@material-ui/core/Drawer';
@@ -47,11 +47,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import { Link } from 'react-router-dom';
 import { Button, CssBaseline, ListItemText, ClickAwayListener } from '@material-ui/core';
-import Home from './HomeView'
-import AllBooksList from '../../components/AllBooksList';
-import Login from '../../components/Login/Login';
-import Register from '../../components/Login/Register';
-
+import BooksList from '../components/BooksList';
+import AddTextbook from '../components/AddTextbook';
+import AllBooksList from '../components/AllBooksList';
+import Profile from '../components/profile';
 
 
 
@@ -104,10 +103,6 @@ const UserView = (props) => {
   const [view, setView] = useState(0);
   const [value, setValue] = useState(0);
   const [updated, setUpdated] = useState([]);
-
-  const login = () => {
-    setView(2);
-  }
   
   return (
     <MuiThemeProvider theme={theme}>
@@ -121,7 +116,7 @@ const UserView = (props) => {
             <Typography variant="h6" className={classes.title}>
               GATOR TRADER
             </Typography>
-            <Button onClick={login} color="inherit">Login</Button>
+            <Button component={Link} to="/Home" color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer open={drawerOpen} variant="temporary">
@@ -133,20 +128,16 @@ const UserView = (props) => {
           <Divider />
           <List>
             <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"profile"}>
-              <ListItemIcon><HomeIcon/></ListItemIcon>
-              <ListItemText primary="Home"/>
+              <ListItemIcon><ProfileIcon/></ListItemIcon>
+              <ListItemText primary="View Profile"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"allTextbooks"}>
+            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"allTextbooks"}>
               <ListItemIcon><MenuBookIcon/></ListItemIcon>
-              <ListItemText primary="View Textbooks"/>
+              <ListItemText primary="All Textbooks"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"textbooks"}>
-              <ListItemIcon><LoginIcon/></ListItemIcon>
-              <ListItemText primary="Login"/>
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => {setView(3);setDrawerOpen(false)}} key={"textbooks"}>
-              <ListItemIcon><LoginIcon/></ListItemIcon>
-              <ListItemText primary="Register"/>
+            <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"textbooks"}>
+              <ListItemIcon><MenuBookIcon/></ListItemIcon>
+              <ListItemText primary="Your Textbooks"/>
             </ListItem>
             {/* <Collapse in={true} unmountOnExit>
               <List disablePadding>
@@ -164,12 +155,9 @@ const UserView = (props) => {
           </List>
         </Drawer>
         <div className={classes.content}>
-          {view == 0 ? <div><Home setView={setView}/></div> : null} 
-          {view == 1 ? <div><AllBooksList updated={updated} setUpdated={setUpdated}/> </div> : null}
-          {view == 2 ? <div><Login setView={setView}/></div> : null} 
-          {view == 3 ? <div><Register setView={setView} /></div> : null} 
-
-
+          {view == 0 ? <div><Profile username={props.location.state.username} email={props.location.state.email} affiliation={props.location.state.affiliation} phoneNumber={props.location.state.phoneNumber}/></div> : null} 
+          {view == 1 ? <div><BooksList updated={updated} setUpdated={setUpdated} username={props.location.state.username}/> </div> : null}
+          {view == 2 ? <div><AllBooksList username={props.location.state.username} email={props.location.state.email} affiliation={props.location.state.affiliation} phoneNumber={props.location.state.phoneNumber} updated={updated} setUpdated={setUpdated}/> </div> : null}
           {/* {view == 1 ? <div><ApptInfo updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 2 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null} */}
           
